@@ -1,0 +1,20 @@
+.dialogues {
+    display: grid; /*то есть этот элемент является сам по себе гридом*/
+    grid-template-columns: 2fr 10fr; /*первая колонка занимает 2 фракции, другая 10 фракций. Одна дивка внутри dialogues занимает 2 фр, другая 10*/
+}
+
+.dialoguesItems {
+    padding: 10px;
+}
+
+.dialoguesItems .active {
+    color: bisque;
+}
+
+.messages {
+    padding: 10px;
+}
+
+.messages.message {
+
+}
