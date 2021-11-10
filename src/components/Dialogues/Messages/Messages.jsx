@@ -1,31 +1,32 @@
 import React from 'react'
 import di from './../Dialogues.module.css'
 import FriendMessage from "./FriendMessage/FriendMessage";
+import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/dialogue-reducer";
+
 
 const Message = (props) => {
-    let messagesData = props.dialoguesPage.messagesData
+    let messagesData = props.messagesData
         .map(m => <FriendMessage message={m.message} id={m.id}/>);
 
-    let newPostMessage = React.createRef();
     let addMessage = () => {
-        props.addMessage();
+        props.dispatch(addMessageActionCreator());
     }
-    let messageOnChange = () => {
-        let text = newPostMessage.current.value;
-        props.updateNewMessageText(text)
+    let messageOnChange = (e) => {
+        let text = e.target.value;
+        props.dispatch(updateNewMessageTextActionCreator(text))
     }
 
     return (
         <div className={di.message}>
+            <div>{messagesData}</div>
             <div>
                 <div>
-                    <textarea ref={newPostMessage} value={props.newMessageText} onChange={messageOnChange}/>
+                    <textarea value={props.newMessageText} placeholder={"Enter your message"} onChange={messageOnChange}/>
                 </div>
                 <div>
                     <button onClick={addMessage}>Send</button>
                 </div>
             </div>
-            <div>{messagesData}</div>
         </div>
     )
 }

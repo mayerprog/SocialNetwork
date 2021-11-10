@@ -1,22 +1,24 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import state, {addMessage, addPost, subscribe, updateNewMessageText, updateNewPostText} from "./redux/state";
+import store from "./redux/state";
 import ReactDOM from "react-dom";
 import App from "./App";
 
-let rerenderEntireTree = (state) => { //передаем state, для того, чтобы иметь возможность вызвать функию извне и передать туда какой-то параметр
+let rerenderEntireTree = (state) => { //передаем state
     ReactDOM.render(
         <React.StrictMode>
-            <App state={state} addPost={addPost} updateNewPostText={updateNewPostText} addMessage={addMessage} updateNewMessageText={updateNewMessageText}/>
+            <App state={state}
+                 dispatch={store.dispatch.bind(store)}/>
         </React.StrictMode>,
         document.getElementById('root')
     ); //рендерит функцию App и передается в root, который находится в практически пустом index.html
 }
 
-rerenderEntireTree(state);
+rerenderEntireTree(store.getState()); //для самого первоначального рендеринга, когда только запускается страничка
 
-subscribe(rerenderEntireTree);
+store.subscribe(rerenderEntireTree); // вызываем из того мира (state) функцию subscribe и передаем тому миру функцию коллбэк rerenderEntireTree через параметр
+//отдаем функцию, чтобы кто-то ее вызвал. То есть мы на этапе первого самого рендера определили, чему в файле state равна функция _subscriber
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

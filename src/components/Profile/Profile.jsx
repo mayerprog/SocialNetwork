@@ -9,8 +9,8 @@ const Profile = (props) => {
             <ProfileInfo/>
             <MyPosts postsData={props.profilePage.postsData}
                      newPostText={props.profilePage.newPostText}
-                     addPost={props.addPost}
-                     updateNewPostText={props.updateNewPostText}/>
+                     dispatch={props.dispatch}/>
+            {/* без скобочек, потому что мы этот метод не вызываем, а только передаем компоненте */}
             {/* т.е. мы передаем в пропс (Объект) свойство postsData, добавив соответствующий аттрибут к компоненте */}
         </div>
     );
