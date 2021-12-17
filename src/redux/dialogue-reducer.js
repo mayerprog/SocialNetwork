@@ -22,21 +22,27 @@ let initialState = {
 
 const dialogueReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_MESSAGE:
+        case ADD_MESSAGE: {
             let body = state.newMessageText // в переменную попало то значение, которое еще было присвоено
             //на этапе выполнения функции updateNewMessageTextActionCreator (ввод сообщения в textarea)
-            state.newMessageText = ''; //вот тут мы обнуляем то, что было введено в textarea, при этом это никак не отражается на body
             let newMessage = {
                 id: 5,
                 message: body,
             };
-            state.messagesData.push(newMessage);
+            let stateCopy = {...state}; // делаем глубокую копию объекта state
+            stateCopy.messagesData = [...state.messagesData];
+            stateCopy.messagesData.push(newMessage);
+            stateCopy.newMessageText = '';
 
-            return state
-        case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.text;
+            return stateCopy
+        }
+        case UPDATE_NEW_MESSAGE_TEXT: {
+            let stateCopy = {...state};
+            stateCopy.newMessageText = action.text;
 
-            return state
+            return stateCopy
+        }
+
         default:
             return state
     }

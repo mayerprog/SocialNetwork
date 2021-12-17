@@ -14,21 +14,26 @@ let initialState = {
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_POST:
+        case ADD_POST: {
             let newPost = {
                 id: 4,
                 message: state.newPostText,
                 likescount: 5
             };
-            state.postsData.push(newPost);
-            state.newPostText = '';
+            let stateCopy = {...state};
+            stateCopy.postsData = [...state.postsData] //глубокая копия массива
+            stateCopy.postsData.push(newPost);
+            stateCopy.newPostText = '';
 
-            return state
+            return stateCopy
+        }
 
-        case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.text;
+        case UPDATE_NEW_POST_TEXT: {
+            let stateCopy = {...state};
+            stateCopy.newPostText = action.text;
 
-            return state
+            return stateCopy
+        }
         //Если action, пришедший из UI, не касается данного редьюсера
         default:
             return state
