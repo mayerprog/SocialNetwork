@@ -1,7 +1,18 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-const profileReducer = (state, action) => {
+//параметр по умолчанию, присваиваем к state, если state не передан
+//а state и так нет при первой инициализации
+let initialState = {
+    postsData: [
+        {id: 1, likescount: 1, message: 'hey, wassup!'},
+        {id: 2, likescount: 2, message: 'I\'m a dumb'},
+        {id: 3, likescount: 3, message: 'I need some hugs'},
+    ],
+    newPostText: ''
+}
+
+const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {
@@ -18,7 +29,7 @@ const profileReducer = (state, action) => {
             state.newPostText = action.text;
 
             return state
-
+        //Если action, пришедший из UI, не касается данного редьюсера
         default:
             return state
 

@@ -2,29 +2,40 @@ import React from 'react'
 import di from './../Dialogues.module.css'
 import FriendMessage from "./FriendMessage/FriendMessage";
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/dialogue-reducer";
+import DialogueItem from "../DialogueItem/DialoguesItem";
 
 
 const Message = (props) => {
-    let messagesData = props.messagesData
+    let state = props.dialoguesPage
+    let dialoguesElements = state.dialoguesData
+        .map(d => <DialogueItem name={d.name} id={d.id}/>);
+    let messagesData = state.messagesData
         .map(m => <FriendMessage message={m.message} id={m.id}/>);
 
-    let addMessage = () => {
-        props.dispatch(addMessageActionCreator());
+    let onAddMessage = () => {
+        props.addMessage();
     }
+
     let messageOnChange = (e) => {
         let text = e.target.value;
-        props.dispatch(updateNewMessageTextActionCreator(text))
+        props.updateNewMessageText(text)
     }
 
     return (
-        <div className={di.message}>
-            <div>{messagesData}</div>
+        <div className={di.dialogues}>
+            <div className={di.dialoguesItems}>
+                {dialoguesElements}
+            </div>
             <div>
-                <div>
-                    <textarea value={props.newMessageText} placeholder={"Enter your message"} onChange={messageOnChange}/>
+                <div className={di.messages}>
+                    {messagesData} {/*т.к. это джаваскриптовый элемент, заключаем его в фигурные скобки*/}
                 </div>
                 <div>
-                    <button onClick={addMessage}>Send</button>
+                    <textarea value={state.newMessageText} placeholder={"Enter your message"}
+                              onChange={messageOnChange}/>
+                </div>
+                <div>
+                    <button onClick={onAddMessage}>Send</button>
                 </div>
             </div>
         </div>

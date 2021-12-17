@@ -5,6 +5,8 @@ import di from "../Dialogues/Dialogues.module.css";
 import Post from "../Profile/MyPosts/Post/Post";
 import Header from "../Header/Header";
 import Friends from "../Friends/Friends";
+import FriendsContainer from "../Friends/MyFriendsContainer";
+import MyFriendsContainer from "../Friends/MyFriendsContainer";
 
 
 const NavBar = (props) => {
@@ -26,7 +28,7 @@ const NavBar = (props) => {
                 <NavLink to="/settings" activeClassName={n.activeLink}>Settings</NavLink>
             </div>
             <div>
-                <Friends data={props.data.sideBarPage}/>
+                <MyFriendsContainer/>
             </div>
         </nav>
     );

@@ -4,7 +4,7 @@ import di from '../../Dialogues.module.css'
 const FriendMessage = (props) => {
 
     return (
-        <div className={di.message}>
+        <div className={di.messages}>
             <div>
                 {props.message}
             </div>

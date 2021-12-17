@@ -43,7 +43,7 @@ let store = {
                 {
                     id: 2,
                     name: 'Vika',
-                    pic: <img src="https://www.meme-arsenal.com/memes/1f09e64d30efeef27435f9e55286c6ae.jpg" width="60"
+                    pic: <img src="https://i.pinimg.com/236x/e6/0f/1a/e60f1ac52ad4f1f3354864962b6360fa.jpg" width="60"
                               height="60"/>
                 },
                 {
@@ -64,11 +64,12 @@ let store = {
     }, //вызвали мы эту функцию еще в индекс.джс при первом самом рендере, то есть сразу определили, чем равен rerenderEntireTree.
 
     dispatch: function (action) {
+        // изменяет state посредством присваивания свойствам _state новых значений
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialoguesPage = dialogueReducer(this._state.dialoguesPage, action);
         this._state.sideBarPage = sidebarReducer(this._state.sideBarPage, action);
 
-        this._subscriber(this._state)
+        this._subscriber()
 
     }
 }
