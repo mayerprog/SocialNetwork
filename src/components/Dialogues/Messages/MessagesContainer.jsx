@@ -36,8 +36,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages) // коннектим презентационную компоненту Messages к state и dispatch
 //теперь коннект отвечает за ререндер(перерисовку компонентов).
-// Каждый раз, когда в стейте происходят изменения, запускается mapStateToProps, что позволяет рендерить не всё дерево,
-// а определенные его части.
+// Каждый раз, когда в стейте происходят изменения, запускается mapStateToProps, что позволяет рендерить не всё дерево, а определенные его части.
 
 
 export default MessagesContainer;

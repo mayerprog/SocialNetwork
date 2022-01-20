@@ -14,28 +14,30 @@ let initialState = {
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_POST: {
+        case ADD_POST:
             let newPost = {
                 id: 4,
-                message: state.newPostText,
+                message: state.newPostText, // в данном случае state - это не initialState, это state
+                //возвращенный после выполнения action UPDATE_NEW_POST_TEXT. Возвращаемый state всегда сохраняется в store
+                // поэтому initialState работает только при самом первом запуске редьюсера.
                 likescount: 5
             };
-            let stateCopy = {...state};
-            stateCopy.postsData = [...state.postsData] //глубокая копия массива
-            stateCopy.postsData.push(newPost);
-            stateCopy.newPostText = '';
+            return {
+                ...state, //делаем поверхностное копирование
+                newPostText: '',
+                postsData: [...state.postsData, newPost] //глубоко копируем postsData + добавляем(пушим) еще один объект в массив
+            };
+            //stateCopy.postsData.push(newPost);
+            //stateCopy.newPostText = '';
 
-            return stateCopy
-        }
+        case UPDATE_NEW_POST_TEXT:
+            return {
+                ...state,
+                newPostText: action.text //делаем поверхностное копирование + сразу присваиваем newPostText новое значение
+            } //делаем поверхностное копирование
+            //stateCopy.newPostText = action.text;
 
-        case UPDATE_NEW_POST_TEXT: {
-            let stateCopy = {...state};
-            stateCopy.newPostText = action.text;
-
-            return stateCopy
-        }
-        //Если action, пришедший из UI, не касается данного редьюсера
-        default:
+        default: //Если action, пришедший из UI, не касается данного редьюсера
             return state
 
     }
