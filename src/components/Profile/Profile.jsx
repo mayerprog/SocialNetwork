@@ -4,12 +4,12 @@ import pr from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
-const Profile = (props) => {
+const Profile = () => {
     return (
         <div>
             <ProfileInfo/>
             <MyPostsContainer/>
-            {/* без скобочек, потому что мы этот метод не вызываем, а только передаем компоненте */}
+            {/* без скобочек, потому что мы этот метод не вызываем, а только передаем компоненту */}
             {/* т.е. мы передаем в пропс (Объект) свойство postsData, добавив соответствующий аттрибут к компоненте */}
         </div>
     );

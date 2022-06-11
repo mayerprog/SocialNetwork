@@ -4,7 +4,7 @@ import Dude from "./Dude/Dude";
 
 const Friends = (props) => {
     let friendsElems = props.sideBarPage.friendData
-        .map(f => <Dude name={f.name} id={f.id} pic={f.pic}/>)
+        .map(f => <Dude name={f.name} key={f.id} id={f.id} pic={f.pic}/>)
 /*
     на основе пропсов создается jsx тег Dude
 */

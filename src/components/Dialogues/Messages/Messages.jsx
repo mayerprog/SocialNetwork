@@ -8,9 +8,9 @@ import DialogueItem from "../DialogueItem/DialoguesItem";
 const Message = (props) => {
     let state = props.dialoguesPage
     let dialoguesElements = state.dialoguesData
-        .map(d => <DialogueItem name={d.name} id={d.id}/>);
+        .map(d => <DialogueItem name={d.name} key={d.id} id={d.id}/>);
     let messagesData = state.messagesData
-        .map(m => <FriendMessage message={m.message} id={m.id}/>);
+        .map(m => <FriendMessage message={m.message} key={m.id} id={m.id}/>);
 
     let onAddMessage = () => {
         props.addMessage();

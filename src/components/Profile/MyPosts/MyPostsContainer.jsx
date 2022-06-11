@@ -4,8 +4,8 @@ import {
     updateNewPostTextActionCreator,
 } from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/dialogue-reducer";
 import connect from "react-redux/lib/connect/connect";
+// import {connect} from "react-redux"
 
 
 /*const MyPostsContainer = (props) => {
@@ -27,6 +27,7 @@ import connect from "react-redux/lib/connect/connect";
 };*/
 
 const mapStateToProps = (state) => {
+   debugger;
     return {
         profilePage: state.profilePage
     }

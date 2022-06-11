@@ -2,6 +2,8 @@ import React from "react";
 import Users from "./Users";
 import connect from "react-redux/lib/connect/connect";
 import {followActionCreator, setUsersActionCreator, unfollowActionCreator} from "../../redux/users-reducer";
+// import { connect } from 'react-redux'
+
 
 const mapStateToProps = (state) => { //запускается каждый раз, когда в стейте происходят какие-то изменения
     return {
@@ -16,6 +18,7 @@ const mapDispatchToProps = (dispatch) => {
         setUsers: (users) => dispatch(setUsersActionCreator(users))
     }
 }
+
 const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
 
 export default UsersContainer
