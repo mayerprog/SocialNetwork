@@ -1,25 +1,30 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS'
-const REMOVE_USERS = 'REMOVE_USERS'
+const SET_USERS = 'SET_USERS';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
+
 
 //параметр по умолчанию, присваиваем к state, если state не передан
 //а state и так нет при первой инициализации
 let initialState = {
-    users: []
+    users: [],
+    pageSize: 100,
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case FOLLOW:
-             return {
-                 ...state, //делаем поверхностное копирование state
-                 users: state.users.map(u => { //перезатираем users в initialState
-                     if (u.id === action.userId) {
-                         return {...u, followed: true} //делаем глубокое копирование для перезатирания значения ключа followed
-                     }
-                     return u 
-                 })
+            return {
+                ...state, //делаем поверхностное копирование state
+                users: state.users.map(u => { //перезатираем users в initialState
+                    if (u.id === action.userId) {
+                        return { ...u, followed: true } //делаем глубокое копирование для перезатирания значения ключа followed
+                    }
+                    return u
+                })
             };
 
         case UNFOLLOW:
@@ -27,7 +32,7 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.map(u => {
                     if (u.id === action.userId) {
-                        return {...u, followed: false}
+                        return { ...u, followed: false }
                     }
                     return u
                 })
@@ -35,23 +40,28 @@ const usersReducer = (state = initialState, action) => {
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.users] //берем старых юзеров и добавляем к ним новых юзеров (по аналогии с 34 строчкой dialogue-reducer.
-        }
-        case REMOVE_USERS:
+                users: action.users
+            }
+        case SET_CURRENT_PAGE:
             return {
                 ...state,
-                users: []
+                currentPage: action.page
+            }
+        case SET_TOTAL_COUNT:
+            return {
+                ...state,
+                totalUsersCount: action.totalCount
             }
         default:
             return state
     }
 }
 
-export const followActionCreator = (userId) => ({type: FOLLOW, userId})
-export const unfollowActionCreator = (userId) => ({type: UNFOLLOW, userId})
-export const setUsersActionCreator = (users) => ({type: SET_USERS, users})
-export const removeUsersActionCreator = () => ({type: REMOVE_USERS})
-
+export const followActionCreator = (userId) => ({ type: FOLLOW, userId })
+export const unfollowActionCreator = (userId) => ({ type: UNFOLLOW, userId })
+export const setUsersActionCreator = (users) => ({ type: SET_USERS, users })
+export const setPageActionCreator = (page) => ({ type: SET_CURRENT_PAGE, page })
+export const setTotalCountActionCreator = (totalCount) => ({ type: SET_TOTAL_COUNT, totalCount })
 
 
 export default usersReducer;
