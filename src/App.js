@@ -11,6 +11,8 @@ import MessagesContainer from "./components/Dialogues/Messages/MessagesContainer
 import UsersContainer from "./components/Users/UsersContainer";
 
 
+
+
 const App = (props) => {
     return (
         <BrowserRouter>
@@ -30,10 +32,12 @@ const App = (props) => {
                            render={() => <Settings/>}/>
                     <Route path='/news'
                            render={() => <News/>}/>
+
                 </div>
             </div>
         </BrowserRouter>
     );
 };
+
 
 export default App; //экспортируем функцию App
