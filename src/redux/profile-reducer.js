@@ -1,5 +1,6 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SET_PROFILE = 'SET_PROFILE';
 
 //параметр по умолчанию, присваиваем к state, если state не передан
 //а state и так нет при первой инициализации
@@ -9,7 +10,8 @@ let initialState = {
         {id: 2, likescount: 2, message: 'I\'m a dumb'},
         {id: 3, likescount: 3, message: 'I need some hugs'},
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -37,6 +39,12 @@ const profileReducer = (state = initialState, action) => {
             } //делаем поверхностное копирование
             //stateCopy.newPostText = action.text;
 
+        case SET_PROFILE:
+            return {
+                ...state,
+                profile: action.profileData
+            }
+
         default: //Если action, пришедший из UI, не касается данного редьюсера
             return state
 
@@ -45,6 +53,8 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPostActionCreator = () => ({type: ADD_POST})
 export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, text})
+export const setProfile = (profileData) => ({type: SET_PROFILE, profileData})
+
 
 window.updateNewPostTextActionCreator = updateNewPostTextActionCreator;
 

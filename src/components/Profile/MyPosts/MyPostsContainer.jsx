@@ -27,7 +27,6 @@ import connect from "react-redux/lib/connect/connect";
 };*/
 
 const mapStateToProps = (state) => {
-   debugger;
     return {
         profilePage: state.profilePage
     }
