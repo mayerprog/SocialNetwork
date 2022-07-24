@@ -5,15 +5,18 @@ import store from "./redux/redux-store";
 import ReactDOM from "react-dom";
 import App from "./App";
 import Provider from "react-redux/lib/components/Provider";
+import { BrowserRouter } from 'react-router-dom';
 
-    ReactDOM.render (
-        <React.StrictMode>
+ReactDOM.render(
+    <React.StrictMode>
+        <BrowserRouter>
             <Provider store={store}>
                 <App />
             </Provider>
-        </React.StrictMode>,
+        </BrowserRouter>
+    </React.StrictMode>,
         document.getElementById('root')
-    ); //рендерит функцию App и передается в root, который находится в практически пустом index.html
+); //рендерит функцию App и передается в root, который находится в практически пустом index.html
 
 /*store.subscribe(() => {
     rerenderEntireTree()
