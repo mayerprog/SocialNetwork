@@ -1,7 +1,8 @@
 .app-wrapper {
   display: grid; /* значит, что все первые потомки, которые лежат в диве с classname app-wrapper, будут вести себя как грид элементы*/
-  width: 2000px;
-  margin: 0 auto;
+  height: 1200px;
+  width: 1300px;  
+  margin: 0;
   grid-template-areas: /* по какому шаблону выстроены areas */
   "h h" /* значит, что в первой строке мы займем 2 колонки */
   "n c"; /* nav займет 1 колонку, content 2ю колонку*/
@@ -13,4 +14,5 @@
 .app-wrapper-content {
   grid-area: c;
   background-color: rgb(165, 195, 221);
+  max-width: 1200px;
 }
