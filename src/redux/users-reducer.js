@@ -20,12 +20,14 @@ const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case FOLLOW:
             return {
-                ...state, //делаем поверхностное копирование state
+                ...state, //делаем поверхностное копирование state, полностью перезаписываем state
                 users: state.users.map(u => { //перезатираем users в initialState
                     if (u.id === action.userId) {
                         return { ...u, followed: true } //делаем глубокое копирование для перезатирания значения ключа followed
+                        //если не сделаем глубокое копирование users, то изменится users в initialState, т.к. было проделано до этого
+                        //только поверхностное копирование ...state. Изменять первоначальный state нельзя.
                     }
-                    return u
+                    return u 
                 })
             };
 
