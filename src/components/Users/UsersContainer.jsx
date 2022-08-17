@@ -4,32 +4,29 @@ import connect from "react-redux/lib/connect/connect";
 import { follow, unfollow, setUsers, setPage, setCount, toggleIsFetching } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
+import { usersAPI } from "../../api/api";
 
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        }).then(response => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
             this.props.toggleIsFetching(false)
-            this.props.setUsers(response.data.items)
-            this.props.setCount(response.data.totalCount)
+            this.props.setUsers(data.items)
+            this.props.setCount(data.totalCount)
         })
     }
 
-    onPageClick = (e) => {
-        this.props.setPage(e) //переданный номер странички e нужно передать в гет запрос обязательно,
+    onPageClick = (pageNumber) => {
+        this.props.setPage(pageNumber) //переданный номер странички e нужно передать в гет запрос обязательно,
         //т.к. если там останется currentPage, он возьмется из старых пропсов, this.props.setPage(e) успеет 
         //передать значение в state только после завершения всего цикла!
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${e}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
-            .then(response => {
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
                 this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             })
 
     }
