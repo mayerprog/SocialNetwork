@@ -2,7 +2,6 @@ import React from "react";
 import style from './Users.module.css';
 import userPhoto from '../../assets/images/user.png'
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 import { usersAPI } from "../../api/api";
 
 let Users = (props) => {
@@ -32,22 +31,29 @@ let Users = (props) => {
                         </NavLink>
                     </div>
                     <div> {u.followed
-                        ? <button onClick={() => {
-                            usersAPI.getUnfollow(u.id)
-                                .then(data => {
-                                    if (data.resultCode == 0) {
-                                        props.unfollow(u.id)
-                                    }
-                                })
-                        }}> Unfollow</button>
-                        : <button onClick={() => {
-                            usersAPI.getFollow(u.id)
-                                .then(data => {
-                                    if (data.resultCode == 0) {
-                                        props.follow(u.id)
-                                    }
-                                })
-                        }}>Follow</button>}
+                        ? <button disabled={props.followingUnfollowingInProgress.some(id => id === u.id)}
+                            onClick={() => {
+                                props.toggleIsFollowing(true, u.id)
+                                usersAPI.deleteUnfollow(u.id)
+                                    .then(data => {
+                                        if (data.resultCode == 0) {
+                                            props.unfollow(u.id)
+                                        }
+                                        props.toggleIsFollowing(false, u.id)
+
+                                    })
+                            }}> Unfollow </button>
+                        : <button disabled={props.followingUnfollowingInProgress.some(id => id === u.id)}
+                            onClick={() => {
+                                props.toggleIsFollowing(true, u.id)
+                                usersAPI.postFollow(u.id)
+                                    .then(data => {
+                                        if (data.resultCode == 0) {
+                                            props.follow(u.id)
+                                        }
+                                        props.toggleIsFollowing(false, u.id)
+                                    })
+                            }}>Follow</button>}
                     </div>
                 </div>
                 <div>

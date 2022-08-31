@@ -4,6 +4,7 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
 const IS_FETCHING = 'IS_FETCHING'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
 
 //параметр по умолчанию, присваиваем к state, если state не передан
@@ -14,6 +15,7 @@ let initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
+    followingUnfollowingInProgress: []
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -21,7 +23,7 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state, //делаем поверхностное копирование state, полностью перезаписываем state
-                users: state.users.map(u => { //перезатираем users в initialState
+                users: state.users.map(u => { //перезатираем users в state
                     if (u.id === action.userId) {
                         return { ...u, followed: true } //делаем глубокое копирование для перезатирания значения ключа followed
                         //если не сделаем глубокое копирование users, то изменится users в initialState, т.к. было проделано до этого
@@ -61,6 +63,13 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             }
+        case TOGGLE_IS_FOLLOWING_PROGRESS:
+            return {
+                ...state,
+                followingUnfollowingInProgress: action.isFetching
+                ? [...state.followingUnfollowingInProgress, action.userId]
+                : state.followingUnfollowingInProgress.filter(id => id != action.userId) //убирает id, равные action.userId
+            }
         default:
             return state
     }
@@ -72,6 +81,7 @@ export const setUsers = (users) => ({ type: SET_USERS, users })
 export const setPage = (page) => ({ type: SET_CURRENT_PAGE, page })
 export const setCount = (totalCount) => ({ type: SET_TOTAL_COUNT, totalCount })
 export const toggleIsFetching = (isFetching) => ({ type: IS_FETCHING, isFetching })
+export const toggleIsFollowing = (isFetching, userId) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId })
 
 
 export default usersReducer;
