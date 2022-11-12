@@ -40,7 +40,6 @@ let Users = (props) => {
                                             props.unfollow(u.id)
                                         }
                                         props.toggleIsFollowing(false, u.id)
-
                                     })
                             }}> Unfollow </button>
                         : <button disabled={props.followingUnfollowingInProgress.some(id => id === u.id)}

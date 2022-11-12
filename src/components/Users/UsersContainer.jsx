@@ -19,11 +19,11 @@ class UsersContainer extends React.Component {
     }
 
     onPageClick = (pageNumber) => {
-        this.props.setPage(pageNumber) //переданный номер странички e нужно передать в гет запрос обязательно,
+        this.props.setPage(pageNumber) 
+        this.props.toggleIsFetching(true)
+        usersAPI.getUsers(pageNumber, this.props.pageSize) //переданный номер странички pageNumber нужно передать в гет запрос обязательно,
         //т.к. если там останется currentPage, он возьмется из старых пропсов, this.props.setPage(e) успеет 
         //передать значение в state только после завершения всего цикла!
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
             .then(data => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(data.items)
