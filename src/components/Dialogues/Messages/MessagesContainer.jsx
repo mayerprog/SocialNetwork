@@ -23,7 +23,7 @@ import connect from "react-redux/lib/connect/connect";
 
 const mapStateToProps = (state) => { //запускается каждый раз, когда в стейте происходят какие-то изменения
     return {
-        dialoguesPage: state.dialoguesPage
+        dialoguesPage: state.dialoguesPage //props.store.getState().dialoguesPage
     }
 }
 
@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages) // коннектим презентационный компонент Messages к state и dispatch
-//теперь коннект отвечает за ререндер(перерисовку компонентов).
+// теперь коннект отвечает за ререндер(перерисовку компонентов).
 // Каждый раз, когда в стейте происходят изменения, запускается mapStateToProps, что позволяет рендерить не всё дерево, а определенные его части.
 
 

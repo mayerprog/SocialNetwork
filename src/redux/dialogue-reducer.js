@@ -41,7 +41,6 @@ const dialogueReducer = (state = initialState, action) => {
                 newMessageText: action.text
             }; // делаем поверхностную копию объекта state
 
-
         default:
             return state
     }
