@@ -23,7 +23,8 @@ import connect from "react-redux/lib/connect/connect";
 
 const mapStateToProps = (state) => { //запускается каждый раз, когда в стейте происходят какие-то изменения
     return {
-        dialoguesPage: state.dialoguesPage //props.store.getState().dialoguesPage
+        dialoguesPage: state.dialoguesPage, //props.store.getState().dialoguesPage
+        isAuth: state.auth.isAuth
     }
 }
 

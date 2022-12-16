@@ -3,6 +3,7 @@ import di from './../Dialogues.module.css'
 import FriendMessage from "./FriendMessage/FriendMessage";
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/dialogue-reducer";
 import DialogueItem from "../DialogueItem/DialoguesItem";
+import { Navigate } from 'react-router-dom';
 
 
 const Message = (props) => {
@@ -20,6 +21,8 @@ const Message = (props) => {
         let text = e.target.value;
         props.updateNewMessageText(text)
     }
+
+    if (!props.isAuth) return <Navigate to='/login' />
 
     return (
         <div className={di.dialogues}>

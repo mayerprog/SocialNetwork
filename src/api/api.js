@@ -21,12 +21,15 @@ export const usersAPI = {
         return instance.delete(`follow/${id}`)
             .then(response => response.data)
     },
-    getLogin() {
-        return instance.get(`auth/me`)
-            .then(response => response.data)
-    },
     getProfile(id) {
         return instance.get(`profile/${id}`)
+            .then(response => response.data)
+    }
+}
+
+export const authAPI = {
+    getLogin() {
+        return instance.get(`auth/me`)
             .then(response => response.data)
     }
 }

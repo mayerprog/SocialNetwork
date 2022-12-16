@@ -4,6 +4,7 @@ import "./App.css"; //импортируем файл css
 import MessagesContainer from "./components/Dialogues/Messages/MessagesContainer";
 import Header from "./components/Header/Header";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
 import Music from "./components/Music/Music";
 import NavBar from "./components/NavBar/NavBar";
 import News from "./components/News/News";
@@ -30,6 +31,8 @@ const App = () => {
                                           element={<UrlParams />} />
                                    <Route path='/users'
                                           element={<UsersContainer />} />
+                                   <Route path='/login'
+                                          element={<Login />} />
                                    <Route path='/music'
                                           element={<Music />} />
                                    <Route path='/settings'
