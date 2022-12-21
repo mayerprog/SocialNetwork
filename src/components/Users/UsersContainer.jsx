@@ -4,7 +4,8 @@ import connect from "react-redux/lib/connect/connect";
 import { setPage, getUsers, unfollowUsers, followUsers} from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
-import { usersAPI } from "../../api/api";
+import { compose } from "redux";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 
 class UsersContainer extends React.Component {
@@ -58,5 +59,6 @@ const mapStateToProps = (state) => { //запускается каждый ра�
 //     }
 // }
 
-export default connect(mapStateToProps, { setPage, 
-                                getUsers, unfollowUsers, followUsers})(UsersContainer)
+export default compose(connect(mapStateToProps, { setPage, 
+    getUsers, unfollowUsers, followUsers}), withAuthRedirect)(UsersContainer)
+
