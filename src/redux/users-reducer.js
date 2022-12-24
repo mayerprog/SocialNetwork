@@ -111,7 +111,7 @@ export const followUsers = (userId) => (dispatch) => {
     dispatch(toggleIsFollowing(true, userId))
     usersAPI.postFollow(userId)
         .then(data => {
-            if (data.resultCode == 0) {
+            if (data.resultCode === 0) {
                 dispatch(follow(userId))
             }
             dispatch(toggleIsFollowing(false, userId))
