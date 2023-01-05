@@ -1,28 +1,20 @@
 import React from 'react'
 import di from './../Dialogues.module.css'
 import FriendMessage from "./FriendMessage/FriendMessage";
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/dialogue-reducer";
 import DialogueItem from "../DialogueItem/DialoguesItem";
-import { Navigate } from 'react-router-dom';
+import { Form, Field } from 'react-final-form'
 
 
 const Message = (props) => {
     let state = props.dialoguesPage
     let dialoguesElements = state.dialoguesData
-        .map(d => <DialogueItem name={d.name} key={d.id} id={d.id}/>);
+        .map(d => <DialogueItem name={d.name} key={d.id} id={d.id} />);
     let messagesData = state.messagesData
-        .map(m => <FriendMessage message={m.message} key={m.id} id={m.id}/>);
+        .map(m => <FriendMessage message={m.message} key={m.id} id={m.id} />);
 
-    let onAddMessage = () => {
-        props.addMessage();
+    let onAddMessage = (values) => {
+        props.addMessage(values.newMessageText);
     }
-
-    let messageOnChange = (e) => {
-        let text = e.target.value;
-        props.updateNewMessageText(text)
-    }
-
-    // if (!props.isAuth) return <Navigate to='/login' />
 
     return (
         <div className={di.dialogues}>
@@ -31,15 +23,26 @@ const Message = (props) => {
             </div>
             <div>
                 <div className={di.messages}>
-                    {messagesData} {/*т.к. это джаваскриптовый элемент, заключаем его в фигурные скобки*/}
+                    {messagesData}
                 </div>
-                <div>
-                    <textarea value={state.newMessageText} placeholder={"Enter your message"}
-                              onChange={messageOnChange}/>
-                </div>
-                <div>
-                    <button onClick={onAddMessage}>Send</button>
-                </div>
+                <Form
+                    onSubmit={onAddMessage}
+                    render={({ handleSubmit }) => (
+                        <form onSubmit={handleSubmit}>
+                            <div>
+                                <Field
+                                    name="newMessageText"
+                                    component="textarea"
+                                    placeholder="Enter your message"
+                                    type="text"
+                                />
+                            </div>
+                            <div>
+                                <button>Send</button>
+                            </div>
+                        </form>
+                    )}
+                />
             </div>
         </div>
     )

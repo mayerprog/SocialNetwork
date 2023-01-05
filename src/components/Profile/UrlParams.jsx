@@ -22,11 +22,9 @@ export class ProfileContainer extends React.Component {
         }
         this.props.getProfileDetails(userId)
         this.props.getStatus(userId)
-        debugger;
     }
 
     render() {
-        if (!this.props.isAuth) return <Navigate to='/login' />
         
         return (
             <Profile {...this.props} profile={this.props.profile} status={this.props.status} 

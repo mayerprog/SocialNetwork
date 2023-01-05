@@ -9,7 +9,6 @@ const mapStateToPropsForRedirect = (state) => {
 }
 
 export const withAuthRedirect = (Component) => {
-    //возвращает контейнерный компонент
     const redirectComponent = (props) => {
         if (!props.isAuth) return <Navigate to='/login' />
         return <Component {...props}/>
