@@ -1,34 +1,39 @@
 import React from "react";
 import mp from "./MyPosts.module.css";
 import Post from "./Post/Post";
+import { Form, Field } from 'react-final-form'
+
 
 const MyPosts = (props) => {
     let state = props.profilePage
     let postElems = state.postsData
-        .map(p => <Post message={p.message} key={p.id} likescount={p.likescount}/>)
+        .map(p => <Post message={p.message} key={p.id} likescount={p.likescount} />)
 
-    let newPostElement = React.createRef()
 
-    let onAddPost = () => {
-        props.addPost();
-    }
-
-    let postOnChange = () => {
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text); //диспетчер (dispatch) берет action и передает его в reducer
+    let onAddPost = (values) => {
+        props.addPost(values.newPostText);
     }
 
     return (
         <div className={mp.postsBlock}>
             <h3> My Posts </h3>
-            <div>
-                <div>
-                    <textarea ref={newPostElement} value={state.newPostText} onChange={postOnChange}/>
-                </div>
-                <div>
-                    <button onClick={onAddPost}>Add post</button>
-                </div>
-            </div>
+            <Form
+                onSubmit={onAddPost}
+                render={({ handleSubmit }) => (
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <Field
+                                name="newPostText"
+                                component="textarea"
+                                type="text"
+                            />
+                        </div>
+                        <div>
+                            <button>Add post</button>
+                        </div>
+                    </form>
+                )}
+            />
             <div className={mp.posts}>
                 {postElems}
             </div>

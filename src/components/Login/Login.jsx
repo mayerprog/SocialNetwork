@@ -1,5 +1,8 @@
 import React from "react";
 import { Form, Field } from 'react-final-form'
+import styles from "./Login.module.css"
+
+const required = value => (value ? undefined : 'Required')
 
 
 const LoginForm = (props) => {
@@ -8,34 +11,37 @@ const LoginForm = (props) => {
             onSubmit={props.onSubmit}
             render={({ handleSubmit, form, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit}>
-                <div>
                     <Field
                         name="login"
-                        component="input"
-                        placeholder="Login"
-                        type="text"
-                    />
-                </div>
-                <div>
+                        validate={required}
+                    >
+                    {({ input, meta }) => ( //в параметрах лежат деструктуризированные пропсы, пришедшие из Field
+                        <div className={meta.error && meta.touched && styles.formControl}>
+                            <input {...input} type="text" placeholder="Login" /> 
+                            {meta.error && meta.touched && <span>{meta.error}</span>} 
+                            {/* если нет значения и если поле не тронуто */}
+                        </div>
+                    )}
+                    </Field>
                     <Field
                         name="password"
-                        component="input"
-                        placeholder="Password"
-                        type="text"
-                    />
-                </div>
-                <div>
+                        validate={required} //передаст в параметр meta данные из функции required
+                    >
+                        {({ input, meta }) => ( //в параметрах лежат деструктуризированные пропсы, пришедшие из Field
+                        <div className={meta.error && meta.touched && styles.formControl}>
+                            <input {...input} type="text" placeholder="Password" /> 
+                            {meta.error && meta.touched && <span>{meta.error}</span>}
+                        </div>
+                    )}
+                    </Field>
                     <label>Remember me</label>
                     <Field
                         name="rememberMe"
                         component="input"
                         type="checkbox"
-                    />
-                </div>
-                <div>
+                    >
+                    </Field>
                     <button type="submit">Login</button>
-                </div>
-                <div />
             </form>
         )}
         />
@@ -46,7 +52,6 @@ const Login = (props) => {
     const onSubmit = (formData) => {
         console.log(formData)
     }
-    console.log('RERENDER')
 
 
     return (
